@@ -1,0 +1,4 @@
+package rocks.tuwa.pojo;
+
+public class UserDAO {
+}

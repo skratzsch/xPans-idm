@@ -25,12 +25,12 @@ public class User {
     private LocalDateTime dateCreated;
 
 
-    private User(String userId, String password) {
+    public User(String userId, String password) {
         this.userId = userId;
         this.password = password;
     }
 
-    private User(String userId, String hashedPassword, String description, LocalDateTime dateCreated) {
+    public User(String userId, String hashedPassword, String description, LocalDateTime dateCreated) {
         this.userId = userId;
         this.hashedPassword = hashedPassword;
         this.description = description;

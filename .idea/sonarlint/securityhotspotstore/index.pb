@@ -21,9 +21,11 @@ l
 <src/test/java/rocks/tuwa/xpans/services/UserServiceTest.java,b/e/bee12ad7ea27264cc92164a9bf75f8145eb22a67
 q
 Asrc/test/java/rocks/tuwa/xpans/controller/UserControllerTest.java,e/e/eea4b360cb19c34666e4f94a0a7fb65a7eaf6a36
-s
-Csrc/test/java/rocks/tuwa/xpans/config/UserControllerTestConfig.java,4/a/4a27fb2606abed77da68b6af7734cd7c3650b2d2
-w
-Gsrc/test/java/rocks/tuwa/xpans/controller/UserControllerTestConfig.java,0/0/006f3e2afda1c95cc1f8e47113c0f02838e56042
 g
 7src/main/java/rocks/tuwa/xpans/XPansIdmApplication.java,9/7/97f2e6b4302d6e0c2cb49fd475c7f0f95435e2b5
+k
+;src/test/java/rocks/tuwa/xpans/XPansIdmApplicationTest.java,6/c/6c5a43827d6f6acff150b311b8d101507bc4dbc7
+m
+=src/main/java/rocks/tuwa/xpans/repository/UserRepository.java,d/1/d103c7366e4bae83d787e4285a52a9531310cc17
+q
+Asrc/test/java/rocks/tuwa/xpans/repository/UserRepositoryTest.java,3/b/3b06c81b3d6ffe4b3129da5de031f1aab56805dd

@@ -1,10 +1,9 @@
 package rocks.tuwa.xpans.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import rocks.tuwa.xpans.pojo.CreateUserDto;
+import rocks.tuwa.xpans.pojo.ValidateUserDto;
 import rocks.tuwa.xpans.services.UserService;
 
 @RestController
@@ -21,6 +20,14 @@ public class UserController {
     public ResponseEntity<?> validateUser(@RequestParam String userId,
                                           @RequestParam String password) {
         // magic
+        userService.validateUser(new ValidateUserDto(userId, password));
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<String> createUser(@RequestBody CreateUserDto createUserDto) {
+        // magic
+        userService.createUser(createUserDto);
+        return ResponseEntity.ok("User wurde erstellt");
     }
 }

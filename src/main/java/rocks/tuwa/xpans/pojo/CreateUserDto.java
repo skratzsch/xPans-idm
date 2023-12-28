@@ -9,6 +9,13 @@ import java.time.LocalDateTime;
 @Setter
 public class CreateUserDto {
 
+    public CreateUserDto(String userId, String password, String description, LocalDateTime dateCreated) {
+        this.userId = userId;
+        this.password = password;
+        this.description = description;
+        this.dateCreated = dateCreated;
+    }
+
     private String userId;
 
     private String password;

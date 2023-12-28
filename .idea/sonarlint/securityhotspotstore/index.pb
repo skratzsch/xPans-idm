@@ -17,3 +17,13 @@ h
 8src/main/java/rocks/tuwa/xpans/pojo/ValidateUserDto.java,5/c/5ca034e4767b0903ee87353538bcae62e424058d
 m
 =src/main/java/rocks/tuwa/xpans/controller/UserController.java,2/1/215ff767b96bb3354e701c11235028cdb3d542bd
+l
+<src/test/java/rocks/tuwa/xpans/services/UserServiceTest.java,b/e/bee12ad7ea27264cc92164a9bf75f8145eb22a67
+q
+Asrc/test/java/rocks/tuwa/xpans/controller/UserControllerTest.java,e/e/eea4b360cb19c34666e4f94a0a7fb65a7eaf6a36
+s
+Csrc/test/java/rocks/tuwa/xpans/config/UserControllerTestConfig.java,4/a/4a27fb2606abed77da68b6af7734cd7c3650b2d2
+w
+Gsrc/test/java/rocks/tuwa/xpans/controller/UserControllerTestConfig.java,0/0/006f3e2afda1c95cc1f8e47113c0f02838e56042
+g
+7src/main/java/rocks/tuwa/xpans/XPansIdmApplication.java,9/7/97f2e6b4302d6e0c2cb49fd475c7f0f95435e2b5

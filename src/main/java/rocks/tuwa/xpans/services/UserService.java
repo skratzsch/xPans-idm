@@ -12,19 +12,20 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService (UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     public boolean validateUser(ValidateUserDto validateUserDto) {
-        //magic
+
         Optional<User> returnedUdser = userRepository.findByUserId(validateUserDto.getUserId());
 
-        return true;
+        return returnedUdser.map(user ->
+                        user.getHashedPassword().equals(validateUserDto.getPassword()))
+                .orElse(false);
     }
 
     public boolean createUser(CreateUserDto createUserDto) {

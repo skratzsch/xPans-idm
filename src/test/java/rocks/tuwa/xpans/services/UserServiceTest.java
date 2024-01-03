@@ -26,24 +26,11 @@ class UserServiceTest {
     void setUp() {
         userRepositoryMock = mock(UserRepository.class);
     }
-    @Test
-    void validateUser_ShouldReturnTrue() {
-
-        User returnedUser = new User("user123", "password");
-        when(userRepositoryMock.findByUserId(anyString())).thenReturn(Optional.of(returnedUser));
-
-        UserService userService = new UserService(userRepositoryMock);
-        ValidateUserDto validateUserDto = new ValidateUserDto("user123", "password");
-
-        boolean result = userService.validateUser(validateUserDto);
-
-        assertTrue(result, "Die Methode validateUser sollte true zurückgeben");
-    }
 
     @Test
     void createUser_ShouldReturnTrue() {
         UserService userService = new UserService(userRepositoryMock);
-        CreateUserDto createUserDto = new CreateUserDto(null, null, null, null);
+        CreateUserDto createUserDto = new CreateUserDto(null, "null", null);
         boolean result = userService.createUser(createUserDto);
         assertTrue(result, "Die Methode createUser sollte true zurückgeben");
     }

@@ -2,18 +2,22 @@ package rocks.tuwa.xpans.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.encoders.Hex;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class CreateUserDto {
 
-    public CreateUserDto(String userId, String password, String description, LocalDateTime dateCreated) {
+    public CreateUserDto(String userId, String password, String description) {
         this.userId = userId;
-        this.password = password;
+        this.password = hashPassword(password);
         this.description = description;
-        this.dateCreated = dateCreated;
     }
 
     private String userId;
@@ -22,6 +26,14 @@ public class CreateUserDto {
 
     private String description;
 
-    private LocalDateTime dateCreated;
+    private static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256", new BouncyCastleProvider());
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            return new String(Hex.encode(hash));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Fehler beim Hashen des Passworts", e);
+        }
+    }
 
 }

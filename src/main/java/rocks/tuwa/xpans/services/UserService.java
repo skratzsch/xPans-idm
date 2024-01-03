@@ -21,11 +21,11 @@ public class UserService {
 
     public boolean validateUser(ValidateUserDto validateUserDto) {
 
-        Optional<User> returnedUdser = userRepository.findByUserId(validateUserDto.getUserId());
+        Optional<User> returnedUser = userRepository.findByUserId(validateUserDto.getUserId());
 
-        return returnedUdser.map(user ->
+        return returnedUser.map(user ->
                         user.getHashedPassword().equals(validateUserDto.getPassword()))
-                .orElse(false);
+                        .orElse(false);
     }
 
     public boolean createUser(CreateUserDto createUserDto) {

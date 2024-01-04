@@ -21,6 +21,7 @@ public class UserController {
                                           @RequestParam String password) {
 
         boolean isValid = userService.validateUser(new ValidateUserDto(userId, password));
+
         return isValid ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
@@ -28,6 +29,7 @@ public class UserController {
     public ResponseEntity<String> createUser(@RequestBody CreateUserDto createUserDto) {
         // magic
         userService.createUser(createUserDto);
+
         return ResponseEntity.ok("User wurde erstellt");
     }
 }

@@ -57,7 +57,7 @@ class UserServiceTest {
         ValidateUserDto dto = new ValidateUserDto(null, "anyPassword");
         assertThat(userService.validateUser(dto), is(false));
     }
-/*
+
     @Test
     void testNullPassword() {
         User mockUser = new User("validUserId", hashPassword("password"), "");
@@ -65,8 +65,6 @@ class UserServiceTest {
         ValidateUserDto dto = new ValidateUserDto("validUserId", null);
         assertThat(userService.validateUser(dto), is(false));
     }
-
- */
 
     @Test
     void testEmptyUserId() {

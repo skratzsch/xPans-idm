@@ -27,6 +27,9 @@ public class CreateUserDto {
     private String description;
 
     private static String hashPassword(String password) {
+        if (password == null) {
+            return "";
+        }
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256", new BouncyCastleProvider());
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));

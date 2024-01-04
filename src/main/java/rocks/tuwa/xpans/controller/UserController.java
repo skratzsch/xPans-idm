@@ -19,9 +19,9 @@ public class UserController {
     @GetMapping("/validateUser")
     public ResponseEntity<?> validateUser(@RequestParam String userId,
                                           @RequestParam String password) {
-        // magic
-        userService.validateUser(new ValidateUserDto(userId, password));
-        return ResponseEntity.ok().build();
+
+        boolean isValid = userService.validateUser(new ValidateUserDto(userId, password));
+        return isValid ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/createUser")

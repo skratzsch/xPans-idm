@@ -27,9 +27,9 @@ public class UserController {
 
     @PostMapping("/createUser")
     public ResponseEntity<String> createUser(@RequestBody CreateUserDto createUserDto) {
-        // magic
-        userService.createUser(createUserDto);
 
-        return ResponseEntity.ok("User wurde erstellt");
+        boolean isValid = userService.createUser(createUserDto);
+
+        return isValid ? ResponseEntity.ok("User wurde erstellt") : ResponseEntity.badRequest().build();
     }
 }

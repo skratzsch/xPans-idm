@@ -8,8 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import rocks.tuwa.xpans.pojo.CreateUserDto;
 import rocks.tuwa.xpans.pojo.ValidateUserDto;
 import rocks.tuwa.xpans.services.UserService;
 
@@ -17,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -69,6 +72,27 @@ public class UserControllerTest {
 
         verify(userService).validateUser(refEq(new ValidateUserDto(userId, password)));
     }
+
+    @Test
+    void createUserSuccess() {
+        CreateUserDto createUserDto = new CreateUserDto("user", "password", "");
+        when(userService.createUser(createUserDto)).thenReturn(true);
+
+        ResponseEntity<String> response = userController.createUser(createUserDto);
+
+        assertThat(response).isEqualTo(ResponseEntity.ok("User wurde erstellt"));
+    }
+
+    @Test
+    void createUserFail() {
+        CreateUserDto createUserDto = new CreateUserDto("user", "password", "");
+        when(userService.createUser(createUserDto)).thenReturn(false);
+
+        ResponseEntity<String> response = userController.createUser(createUserDto);
+
+        assertThat(response).isEqualTo(ResponseEntity.badRequest().build());
+    }
+
 
     private String hashPassword(String password) {
         try {

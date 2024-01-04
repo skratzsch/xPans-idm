@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,20 +39,20 @@ public class UserControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
-    /*
     @Test
     void validateUser_Successful() throws Exception {
         String userId = "userId";
         String password = "password";
+        String hashedPassword = hashPassword(password); // Hash das Passwort
 
-        when(userService.validateUser(any(ValidateUserDto.class))).thenReturn(true);
+        when(userService.validateUser(argThat(dto -> userId.equals(dto.getUserId()) && hashedPassword.equals(dto.getPassword())))).thenReturn(true);
 
-        mockMvc.perform(get("/validateUser")
+        mockMvc.perform(get("/xpans/validateUser")
                         .param("userId", userId)
                         .param("password", password))
                 .andExpect(status().isOk());
 
-        verify(userService).validateUser(new ValidateUserDto(userId, password));
+        verify(userService).validateUser(argThat(dto -> userId.equals(dto.getUserId()) && hashedPassword.equals(dto.getPassword())));
     }
 
     @Test
@@ -62,14 +62,13 @@ public class UserControllerTest {
 
         when(userService.validateUser(any(ValidateUserDto.class))).thenReturn(false);
 
-        mockMvc.perform(get("/validateUser")
+        mockMvc.perform(get("/xpans/validateUser")
                         .param("userId", userId)
                         .param("password", password))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
 
-        verify(userService).validateUser(new ValidateUserDto(userId, password));
+        verify(userService).validateUser(refEq(new ValidateUserDto(userId, password)));
     }
-    */
 
     private String hashPassword(String password) {
         try {

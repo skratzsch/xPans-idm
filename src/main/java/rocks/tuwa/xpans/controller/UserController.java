@@ -22,7 +22,7 @@ public class UserController {
 
         boolean isValid = userService.validateUser(new ValidateUserDto(userId, password));
 
-        return isValid ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
+        return isValid ? ResponseEntity.ok().build() : ResponseEntity.status(403).build();
     }
 
     @PostMapping("/createUser")

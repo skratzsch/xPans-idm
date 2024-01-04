@@ -1,5 +1,6 @@
 package rocks.tuwa.xpans.pojo;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -10,8 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 public class CreateUserDto {
 
     public CreateUserDto(String userId, String password, String description) {

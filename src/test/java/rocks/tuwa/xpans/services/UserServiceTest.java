@@ -4,9 +4,11 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import rocks.tuwa.xpans.pojo.CreateUserDto;
 import rocks.tuwa.xpans.pojo.User;
 import rocks.tuwa.xpans.pojo.ValidateUserDto;
 import rocks.tuwa.xpans.repository.UserRepository;
@@ -18,6 +20,9 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.ArgumentCaptor.forClass;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -96,6 +101,41 @@ class UserServiceTest {
         assertThat(userService.validateUser(dto), is(true));
     }
 
+    @Test
+    void createUserWithNullDto() {
+        boolean result = userService.createUser(null);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    void createUserWithValidDto() {
+        CreateUserDto validDto = new CreateUserDto("1", "password", "description");
+
+        userService.createUser(validDto);
+
+        ArgumentCaptor<User> userCaptor = forClass(User.class);
+        verify(userRepository).save(userCaptor.capture());
+
+        User capturedUser = userCaptor.getValue();
+
+        assertThat(capturedUser, is(notNullValue()));
+        assertThat(capturedUser.getUserId(), is("1"));
+    }
+
+    @Test
+    void createUserWithInvalidDto() {
+        CreateUserDto invalidDto = new CreateUserDto(null, "", "");
+        boolean result = userService.createUser(invalidDto);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    void createUserThrowsException() {
+        CreateUserDto validDto = new CreateUserDto(null, null, null);
+        User user = User.fromCreateUser(validDto);
+        boolean result = userService.createUser(validDto);
+        assertThat(result, is(false));
+    }
 
     private String hashPassword(String password) {
         try {

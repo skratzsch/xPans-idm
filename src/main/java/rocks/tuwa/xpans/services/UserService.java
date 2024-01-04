@@ -1,5 +1,6 @@
 package rocks.tuwa.xpans.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rocks.tuwa.xpans.pojo.CreateUserDto;
@@ -9,6 +10,7 @@ import rocks.tuwa.xpans.repository.UserRepository;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -29,7 +31,28 @@ public class UserService {
     }
 
     public boolean createUser(CreateUserDto createUserDto) {
-        //magic
+
+        if (createUserDto == null) {
+            log.error("CreateUserDto ist null");
+            return false;
+        }
+
+        if (!isValidCreatedUserDto(createUserDto)) {
+            log.error("CreateUserDto ist nicht gültig: " + createUserDto);
+            return false;
+        }
+
+        try {
+            User user = User.fromCreateUser(createUserDto);
+            userRepository.save(user);
+        } catch (Exception e) {
+            log.error("Da ist was schief gelaufen beim speichern", e);
+            return false;
+        }
         return true;
+    }
+
+    private boolean isValidCreatedUserDto(CreateUserDto dto) {
+        return dto.getUserId() != null && !dto.getPassword().isEmpty();
     }
 }
